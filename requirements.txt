@@ -1,0 +1,10 @@
+fastapi>=0.115.0
+uvicorn>=0.30.0
+python-multipart>=0.0.9
+pillow>=10.4.0
+numpy>=2.1.0
+pytest>=8.3.2
+
+# Optional: if model inference is added later
+# tensorflow>=2.16.0
+# transformers>=4.44.0
