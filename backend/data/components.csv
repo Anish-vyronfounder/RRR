@@ -1,0 +1,7 @@
+component_id,category,manufacturer,model,form_factor,interface,socket_or_standard,capacity_or_power,voltage,verified_source,status
+RAM-KINGSTON-KVR32N22S8-8,RAM,Kingston,KVR32N22S8/8,288-pin DIMM,DDR4,DDR4-3200,8GB,1.2V,Kingston datasheet,verified
+SSD-SAMSUNG-870EVO-500,Storage,Samsung,870 EVO 500GB,2.5-inch,SATA 6 Gb/s,SATA,500GB,5V, Samsung product specification,verified
+CPU-AMD-R5-5600,CPU,AMD,Ryzen 5 5600,AM4,PCIe 4.0,AM4,65W,,AMD consumer product guide,verified
+GPU-GENERIC-PCIEX16,GPU,Generic,PCIe graphics card,PCIe add-in card,PCIe x16,PCIe,manufacturer-specific,manufacturer-specific,Requires exact board/GPU specification,conditional
+PSU-GENERIC-ATX,PSU,Generic,ATX power supply,ATX,ATX power connectors,ATX,manufacturer-specific,manufacturer-specific,Requires exact PSU/GPU specification,conditional
+MOTHERBOARD-GENERIC-DDR4,Motherboard,Generic,DDR4 motherboard,ATX/mATX,PCIe + SATA,DDR4,manufacturer-specific,manufacturer-specific,Requires exact motherboard model,conditional
