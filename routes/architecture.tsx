@@ -1,0 +1,1 @@
+import { createFileRoute } from '@tanstack/react-router'; export const Route=createFileRoute('/architecture')({component:()=> <section className="rrr-card"><h1>Architecture</h1><p>Vision → data → compatibility → RAG → RRR engines.</p></section>})
