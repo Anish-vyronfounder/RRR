@@ -1,0 +1,1 @@
+import { createFileRoute } from '@tanstack/react-router'; export const Route=createFileRoute('/profile')({component:()=> <section className="rrr-card"><h1>Profile</h1><p>Profile settings.</p></section>})
