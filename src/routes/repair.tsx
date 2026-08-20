@@ -1,0 +1,2 @@
+import { createFileRoute } from '@tanstack/react-router'
+export const Route = createFileRoute('/repair')({ component: () => <section className="rrr-card"><h1>Repair</h1><p>Repair guidance will be grounded in verified component documentation.</p></section> })
