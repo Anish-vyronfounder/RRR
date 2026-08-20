@@ -10,7 +10,7 @@ from PIL import Image
 from backend.config import FRONTEND_ORIGINS, VISION_ALLOWED_EXTENSIONS, VISION_MAX_FILE_SIZE_MB
 from backend.services.vision_service import VisionService
 
-app = FastAPI(title="RRR Vision API", version="0.1.0")
+app = FastAPI(title="RRR API", version="0.2.0")
 
 app.add_middleware(
     CORSMiddleware,
@@ -25,18 +25,16 @@ vision_service = VisionService()
 
 @app.on_event("startup")
 def startup_event() -> None:
-    try:
-        vision_service.load_model()
-    except Exception:
-        pass
+    vision_service.load_model()
 
 
 @app.get("/health")
 def health() -> dict:
     return {
         "status": "ok",
+        "service": "rrr-api",
         "vision_model": vision_service.model.model_name,
-        "tensorflow": True,
+        "vision_model_loaded": vision_service.model.is_loaded(),
     }
 
 
@@ -47,6 +45,7 @@ def vision_status() -> dict:
         "loaded": vision_service.model.is_loaded(),
         "model_name": vision_service.model.model_name,
         "framework": "tensorflow",
+        "production_ready": vision_service.model.is_loaded(),
     }
 
 
@@ -72,22 +71,14 @@ async def analyze_image(file: UploadFile = File(...)) -> dict:
 
     width, height = image.size
     array = np.asarray(image.resize((224, 224)), dtype="float32") / 255.0
-    original_shape = (height, width, 3)
 
     try:
-        result = vision_service.analyze(array, original_shape, image_name=file.filename)
+        result = vision_service.analyze(
+            array,
+            (height, width, 3),
+            image_name=file.filename,
+        )
     except Exception as exc:
-        raise HTTPException(status_code=500, detail=str(exc)) from exc
+        raise HTTPException(status_code=500, detail="Vision analysis failed") from exc
 
-    return {
-        "success": True,
-        "object": result["object"],
-        "confidence": result["confidence"],
-        "model": result["model"],
-        "image": result["image"],
-        "classification": result["classification"],
-        "detections": result["detections"],
-        "features": result["features"],
-        "stage": result["stage"],
-        "filename": file.filename,
-    }
+    return {**result, "success": True, "filename": file.filename}
