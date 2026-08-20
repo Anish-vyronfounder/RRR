@@ -1,0 +1,2 @@
+import { createFileRoute } from '@tanstack/react-router'
+export const Route = createFileRoute('/knowledge')({ component: () => <section className="rrr-card"><h1>Knowledge</h1><p>RRR's grounded technical knowledge base.</p></section> })
