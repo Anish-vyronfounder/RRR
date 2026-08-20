@@ -1,0 +1,1 @@
+export function renderErrorPage(): string { return '<!doctype html><html><head><meta charset="utf-8"><title>RRR Error</title></head><body><h1>RRR server error</h1><p>Please try again.</p></body></html>' }
