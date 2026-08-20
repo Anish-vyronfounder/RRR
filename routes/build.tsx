@@ -1,0 +1,1 @@
+import { createFileRoute } from '@tanstack/react-router'; export const Route=createFileRoute('/build')({component:()=> <section className="rrr-card"><h1>Build</h1><p>Verified compatibility will drive build recommendations.</p></section>})
