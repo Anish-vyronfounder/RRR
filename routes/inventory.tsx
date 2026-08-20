@@ -1,0 +1,1 @@
+import { createFileRoute } from '@tanstack/react-router'; export const Route=createFileRoute('/inventory')({component:()=> <section className="rrr-card"><h1>Inventory</h1><p>Your saved components will appear here.</p></section>})
