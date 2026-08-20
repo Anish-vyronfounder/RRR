@@ -1,0 +1,1 @@
+import { createFileRoute } from '@tanstack/react-router'; export const Route=createFileRoute('/projects')({component:()=> <section className="rrr-card"><h1>Projects</h1><p>Saved RRR projects.</p></section>})
