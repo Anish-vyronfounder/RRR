@@ -1,0 +1,10 @@
+component_id,category,name,manufacturer,model,interface,form_factor,capacity_or_spec,voltage,condition,notes
+RAM-DDR4-001,RAM,DDR4 desktop memory,Kingston,KVR32N22S8/8,DDR4,UDIMM,8GB 3200MT/s,1.2V,working,"Example reference component; verify exact module label before compatibility decision"
+RAM-DDR4-002,RAM,DDR4 desktop memory,Crucial,CT8G4DFRA32A,DDR4,UDIMM,8GB 3200MT/s,1.2V,working,"Example reference component; verify exact module label before compatibility decision"
+SSD-SATA-001,Storage,SATA SSD,Samsung,870 EVO,SATA III,2.5-inch,500GB,5V,working,"SATA storage device"
+SSD-NVME-001,Storage,NVMe SSD,WD,Blue SN570,PCIe 3.0 x4,M.2 2280,500GB,3.3V,working,"M.2 NVMe storage; exact host support must be checked"
+GPU-PCIE-001,GPU,GeForce GTX 1650,NVIDIA,GTX 1650,PCIe x16,PCIe add-in card,4GB GDDR5,12V,working,"Power requirement varies by board partner; verify exact model"
+CPU-AM4-001,CPU,Ryzen 5 5600,AMD,Ryzen 5 5600,AM4,Desktop CPU,6 cores / 12 threads,1.1V class,working,"Motherboard BIOS compatibility must be verified"
+MCU-ESP32-001,Microcontroller,ESP32 development board,Espressif,ESP32 DevKit,GPIO/USB,Development board,Wi-Fi + Bluetooth,3.3V logic,working,"Board revision and pinout must be verified"
+MCU-ARDUINO-001,Microcontroller,Arduino Uno,Arduino,Uno Rev3,USB/GPIO,Development board,ATmega328P,5V logic,working,"Use board revision for exact electrical limits"
+PSU-ATX-001,Power Supply,ATX power supply,Corsair,CX550,ATX,ATX PSU,550W,100-240VAC input,working,"Connector and GPU power requirements must be verified"
