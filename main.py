@@ -10,28 +10,34 @@ from PIL import Image
 from backend.config import FRONTEND_ORIGINS, VISION_ALLOWED_EXTENSIONS, VISION_MAX_FILE_SIZE_MB
 from backend.services.component_service import get_component, list_components
 from backend.services.compatibility_service import check_compatibility
+from backend.services.rrr_engines import plan_pc_build
 from backend.services.vision_service import VisionService
 
-app = FastAPI(title="RRR API", version="0.3.0")
+app = FastAPI(title="RRR API", version="0.4.0")
 app.add_middleware(CORSMiddleware, allow_origins=FRONTEND_ORIGINS, allow_credentials=True, allow_methods=["*"], allow_headers=["*"])
 vision_service = VisionService()
+
 
 @app.on_event("startup")
 def startup_event() -> None:
     vision_service.load_model()
 
+
 @app.get("/health")
 def health() -> dict:
     return {"status": "ok", "service": "rrr-api", "vision_model": vision_service.model.model_name, "vision_model_loaded": vision_service.model.is_loaded()}
+
 
 @app.get("/api/vision/status")
 def vision_status() -> dict:
     return {"status": "ok", "loaded": vision_service.model.is_loaded(), "model_name": vision_service.model.model_name, "framework": "tensorflow", "production_ready": vision_service.model.is_loaded()}
 
+
 @app.get("/api/components")
 def components() -> dict:
     items = list_components()
     return {"count": len(items), "components": items}
+
 
 @app.get("/api/components/{component_id}")
 def component(component_id: str) -> dict:
@@ -40,6 +46,7 @@ def component(component_id: str) -> dict:
         raise HTTPException(status_code=404, detail="Component not found")
     return item
 
+
 @app.post("/api/compatibility/check")
 def compatibility(payload: dict) -> dict:
     first, second = payload.get("component_a"), payload.get("component_b")
@@ -47,6 +54,20 @@ def compatibility(payload: dict) -> dict:
         raise HTTPException(status_code=400, detail="component_a and component_b must be objects")
     result = check_compatibility(first, second)
     return {"compatible": result.compatible, "confidence": result.confidence, "reasons": result.reasons}
+
+
+@app.post("/api/build/plan")
+def build_plan(payload: dict) -> dict:
+    """Generate a conservative PC plan from user goals and the verified catalog.
+
+    The endpoint deliberately returns insufficient_catalog/needs_verification
+    instead of inventing components when the evidence is incomplete.
+    """
+    if not isinstance(payload, dict):
+        raise HTTPException(status_code=400, detail="Build request must be an object")
+    result = plan_pc_build(payload, list_components())
+    return result
+
 
 @app.post("/api/vision/analyze")
 async def analyze_image(file: UploadFile = File(...)) -> dict:
